@@ -15,8 +15,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import win.yellowpal.springboot.conf.WebConfiguration.MyFilter;
-
 @Configuration
 public class WebConfiguration {
 
