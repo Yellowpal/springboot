@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,9 @@ public class HelloController {
 	
 	@Autowired
 	private AmqpTemplate rabbitTemplate;
+	
+	@Autowired
+    private MongoTemplate mongoTemplate;
 	
 	@RequestMapping("/hello")
 	public String hello(){
@@ -90,6 +94,13 @@ public class HelloController {
 	public void mqObject(){
 		
 		rabbitTemplate.convertAndSend(RabbitConf.exchange, "", testMapper.getById(1));
+	}
+	
+	@RequestMapping("/mongo/set")
+	public void mongoSet(){
+		User user = userRepository.findByUserName("aa1");
+		
+		mongoTemplate.save(user);
 	}
 	
 }
