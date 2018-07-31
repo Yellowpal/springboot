@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import win.yellowpal.springboot.conf.TestProperties;
+import win.yellowpal.springboot.dao.TestMapper;
 import win.yellowpal.springboot.dao.UserRepository;
+import win.yellowpal.springboot.domain.Test;
 import win.yellowpal.springboot.domain.User;
 
 @RestController
@@ -21,6 +23,9 @@ public class HelloController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired 
+	private TestMapper testMapper;
 	
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
@@ -53,5 +58,16 @@ public class HelloController {
 		
 		session.setAttribute("uuid", uuid);
 		return session.getId();
+	}
+	
+	@RequestMapping("/mybatis/get")
+	public Test mybatisGet(){
+		
+		Test test = new Test();
+		test.setName("45ddd");
+		test.setSex(0);
+		testMapper.insert(test);
+		
+		return test;
 	}
 }
