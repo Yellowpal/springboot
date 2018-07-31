@@ -4,11 +4,13 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import win.yellowpal.springboot.conf.RabbitConf;
 import win.yellowpal.springboot.conf.TestProperties;
 import win.yellowpal.springboot.dao.TestMapper;
 import win.yellowpal.springboot.dao.UserRepository;
@@ -29,6 +31,9 @@ public class HelloController {
 	
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
+	
+	@Autowired
+	private AmqpTemplate rabbitTemplate;
 	
 	@RequestMapping("/hello")
 	public String hello(){
@@ -70,4 +75,21 @@ public class HelloController {
 		
 		return test;
 	}
+	
+	@RequestMapping("/mq/send")
+	public void mqSend(String text){
+		rabbitTemplate.convertAndSend("hello", text);
+	}
+	
+	@RequestMapping("/mq/get")
+	public String mqSend(){
+		return (String) rabbitTemplate.receiveAndConvert("hello");
+	}
+	
+	@RequestMapping("/mq/object")
+	public void mqObject(){
+		
+		rabbitTemplate.convertAndSend(RabbitConf.exchange, "", testMapper.getById(1));
+	}
+	
 }

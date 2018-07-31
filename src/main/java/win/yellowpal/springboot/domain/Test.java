@@ -1,6 +1,13 @@
 package win.yellowpal.springboot.domain;
 
-public class Test {
+import java.io.Serializable;
+
+public class Test implements Serializable{
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -794379286585146938L;
+
 	private long id;
 	
 	private String name;
