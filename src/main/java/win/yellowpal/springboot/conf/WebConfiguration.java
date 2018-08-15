@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfiguration {
 
-	@Bean
+	/*@Bean
 	public RemoteIpFilter remoteIpFilter() {
 		return new RemoteIpFilter();
 	}
@@ -54,5 +54,5 @@ public class WebConfiguration {
 		public void init(FilterConfig arg0) throws ServletException {
 			// TODO Auto-generated method stub
 		}
-	}
+	}*/
 }
